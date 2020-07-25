@@ -1,19 +1,10 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of cargarArchivo
  *
  * @author Gabriel Barboza Carvajal .
  */
 
-//include './modelo/provincia.php';
-//include './modelo/canton.php';
 class cargarArchivo {
 
     public function __construct() {
@@ -29,7 +20,6 @@ class cargarArchivo {
                 echo "<br>", $error->message;
             }
         } else {
-//            print_r($xml);
             //recorremos las provincias
             $divisionPolitica= array();
             foreach ($xml->children() as $data)
@@ -57,28 +47,11 @@ class cargarArchivo {
                     }
                     $canton->distritos=$distritos;
                     $provin->cantones=$cantones;
-                }
-                
+                }   
             }
-            
-            
-            }
-            
-            
-        
+        }
+    
         return $divisionPolitica;
     }
     
-
-    static public function mostrarCantones($provincia) {
-
-        for ($provincia->rewind(); $provincia->valid(); $provincia->next()) {
-
-            if ($provincia->hasChildren()) {
-                var_dump($provincia->current());
-                echo "<br>";
-            }
-        }
-    }
-
 }
