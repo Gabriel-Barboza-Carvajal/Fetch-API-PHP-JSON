@@ -11,18 +11,24 @@ include_once './modelo/division_total.php';
 include_once './cargarArchivo.php';
 
 $divi = new division_total();
+
+//cargamos informacion del archivo XML y lo devolvemos en formato array
+//luego usando OOP y el metodo __serialize podemos serializar todo el objeto con 
+//el arreglo de objetos y dentro de estos objetos con otros arrays de objetos
+//y cada vez que se llame al metodo __serialize si estos metodos contienen una lista
+//se llamara a cada lista para serializarlo de una manera correcta.
+
 $divi->provincias = cargarArchivo::devolverXMLCostaRica();
+
 //serializamos la informacion obtenida.
 $data = $divi->__serialize();
 
-//deserealizamos.
 $diviDeserea = new division_total();
 
+//deserealizamos el objeto en base al anterior para demostrar
+//el correcto funcionamiento.
 $diviDeserea->__unserialize($data);
-//$x= json_encode($diviDeserea->__serialize());0
+
+//enviamos los datos a la pagina para poder gestionar la aplicacion.
 $x= json_encode(array('item'=>$diviDeserea->__serialize(),JSON_FORCE_OBJECT));
-//$s=new distrito('asdf','sdds','dddddddddddd');
-//$x= json_encode(array('item'=>$s->__serialize(),JSON_FORCE_OBJECT));
-//$s=new distrito('a','b','c');
-//echo json_encode($s->__serialize());
 echo ($x);
